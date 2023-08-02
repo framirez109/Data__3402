@@ -1,0 +1,223 @@
+"ID","GroupName","LastName","Song","Artist","Genre","ShazamSong","ShazamArtist","Correct","Duration"
+1,"Stage Left","Ixcolin","Smooth Criminal","Michael Jackson","Pop","Smooth Criminal","Michael Jackson","Yes",10
+2,"Stage Left","Ixcolin","Sky Walker","Miguel ft. Travis Scott","Hip-Hop","Sky Walker","Miguel ft. Travis Scott","Yes",10
+3,"Stage Left","Ixcolin","Forever","Streex","EDM","Inside","Jupiter 8000","No",10
+4,"Stage Left","Ixcolin","Sober Up - Steve Aoki Remix","AJR ft Steve Aoki","EDM","Sober Up","AJ ft. Rivers Cuomo","No",10
+5,"Stage Left","Ixcolin","Outta Here","Papa Ya ft. Con Bro Chill","Pop","Outta Here","Papa Ya ft. Con Bro Chill","Yes",10
+6,"Stage Left","Ixcolin","Hit the Floor","Linkin Park","Alt. Rock","Hit the Floor","Linkin Park","Yes",10
+7,"Stage Left","Ixcolin","No","Shakira ft. Gustavo Cerati","Latin-Pop","No","Shakira ft. Gustavo Cerati","Yes",10
+8,"Stage Left","Ixcolin","Mujeres","Ricardo Arjona","Latin-Pop","Mujeres","Ricardo Arjona","Yes",10
+9,"Stage Left","Ixcolin","Halo","Martin O'Donnell","Gaming","Halo","Martin O'Donnell","Yes",10
+10,"Stage Left","Ixcolin","The Moon Theme (from ""Duck Tales"")","The Greatest Bits","Gaming","The Moon Theme (from ""Duck Tales"")","The Greatest Bits","Yes",10
+11,"Stage Left","Ixcolin","Too Long","Daft Punk","EDM","Too Long","Daft Punk","Yes",10
+12,"Stage Left","Ixcolin","Kasoor","Prateek Luhad","Indian","Kasoor","Prateek Luhad","Yes",10
+13,"Stage Left","Ixcolin","Crazy Noise Bizzaree Town","the DU","Anime","Crazy Noise Bizzaree Town","the DU","Yes",6
+14,"Stage Left","Ixcolin","Overdrive","Taku Iwasaki","Anime","Overdrive","Taku Iwasaki","Yes",6
+15,"Stage Left","Ixcolin","Maria Maria","Santana","Pop","Maria Maria","Santana","Yes",10
+16,"Stage Left","Vahidy","Hotel Breakfast","Bladee","Alternative","Hotel Breakfast","Bladee","Yes",10
+17,"Stage Left","Vahidy","Still Here","Drake","Hip Hop","Still Here","Drake","Yes",10
+18,"Stage Left","Vahidy","Hurricane","Kanye West","Hip Hop","Hurricane","Kanye West","Yes",10
+19,"Stage Left","Vahidy","ORANGE SODA","Baby Keem","Hip Hop","ORANGE SODA","Baby Keem","Yes",10
+20,"Stage Left","Vahidy","Mr.Rager","Kid Cudi","Hip Hop","Mr.Rager","Kid Cudi","Yes",10
+21,"Stage Left","Vahidy","Novacane","Frank Ocean","Alternative","Novacane","Frank Ocean","Yes",10
+22,"Stage Left","Vahidy","Just for me","PinkPantheress","Pop","Just for me","PinkPantheress","Yes",10
+23,"Stage Left","Vahidy","Best Day Ever","Mac Miller","Hip Hop","Best Day Ever","Mac Miller","Yes",10
+24,"Stage Left","Vahidy","Sofia","Clairo","Alternative","Sofia","Clairo","Yes",10
+25,"Stage Left","Vahidy","Scrawny","Wallows","Alternative","Scrawny","Wallows","Yes",10
+26,"Stage Left","Vahidy","Foreign","Playboi Carti","Hip Hop","Foreign","Playboi Carti","Yes",10
+27,"Stage Left","Vahidy","Agony","Yung Lean","Alternative","Agony","Yung Lean","Yes",10
+28,"Stage Left","Vahidy","Art Class","Beabadoobee","Alternative","Art Class","Beabadoobee","Yes",10
+29,"Stage Left","Vahidy","Baby Boy","Kevin Abstract","Pop","Baby Boy","Kevin Abstract","Yes",10
+30,"Stage Left","Vahidy","Who Dat Boy","Tyler The Creator","Hip Hop","Who Dat Boy","TrillWillTv","No",10
+31,"Stage Left","Allen","Famous Last Words","James Blake","Alternative","Famous Last Words","James Blake","Yes",4
+32,"Stage Left","Allen","Araca Azul","Caetano Veloso","Pop","Araca Azul","Caetano Veloso","Yes",9
+33,"Stage Left","Allen","Part of Your World","Jodi Benson","Disney","Part of Your World","Jodi Benson","Yes",4
+34,"Stage Left","Allen","Noid","Yves Tumor","Alternative","Noid","Yves Tumor","Yes",6
+35,"Stage Left","Allen","In My Dreams","Kid Cudi","Hip-Hop","In My Dreams","Kid Cudi","Yes",8
+36,"Stage Left","Allen","Can You Get to That","Funkadelic","R&B","Can You Get To That","Funkadelic","Yes",3
+37,"Stage Left","Allen","The Party's Just Begun","The Cheetah Girls","Pop","The Party's Just Begun","The Cheetah Girls","Yes",5
+38,"Stage Left","Allen","Coffee & TV","Blur","Rock","Coffee & TV","Blur","Yes",5
+39,"Stage Left","Allen","If You Want Me to Stay","Sly & The Family Stone","R&B","If You Want Me To Stay","Sly & The Family Stone","Yes",5
+40,"Stage Left","Allen","Magdalena","Duendita","R&B","Magdalena","Duendita","Yes",10
+41,"Stage Left","Allen","I Can't Stop","Flux Pavillion","EDM","I Can't Stop","Flux Pavillion","Yes",5
+42,"Stage Left","Allen","Ritual Union","Little Dragon","Alternative","Ritual Union","Little Dragon","Yes",4
+43,"Stage Left","Allen","Sanctify","St. Paul & The Broken Bones","R&B","Sanctify","St. Paul & The Broken Bones","Yes",6
+44,"Stage Left","Allen","Dream","Al Green","R&B","Dream","Al Green","Yes",6
+45,"Stage Left","Allen","Stardew Valley Overture","ConcernedApe","Gaming","Stardew Valley Overature","ConcernedApe","Yes",4
+46,"Stage Left","Ramirez","Sad Machine","Poter Robinson","EDM","Sad Machine","Poter Robinson","Yes",10
+47,"Stage Left","Ramirez","Blinding Lights","The weekend","R&B","Blinding Lights","The Weekend","Yes",10
+48,"Stage Left","Ramirez","Look at the Stars","The purple Stripe","Classical","Look at the stars","The purple Stripe","Yes",10
+49,"Stage Left","Ramirez","Nannor Seppett","Mozart","Classical","Nannor Seppett","Mozart","Yes",5
+50,"Stage Left","Ramirez","A star is born","Semaj the Poet","Disney","A star is born","Semaj the Poet","Yes",10
+51,"Stage Left","Ramirez","Meserize","Ja Rule","R&B","Mesmerize","Ja Rule","Yes",10
+52,"Stage Left","Ramirez","Zanarkland","Nobuo Uemsatsu","Gaming","Zanarkland","Nobuo Uemsatsu","Yes",7
+53,"Stage Left","Ramirez","Underwater","Video games Players","Gaming","Underwater","Video games Players","Yes",10
+54,"Stage Left","Ramirez","Dogma","Mick Gordon","Gaming","Dogma","Mick Gordon","yes",8
+55,"Stage Left","Ramirez","I'm a mess remix","Bebs Rexha","EDM","I'm a mess remix","Bebs Rexha","yes",10
+56,"Stage Left","Ramirez","Threnody","Naeleck","EDM","Threnody","Naeleck","yes",4
+57,"Stage Left","Ramirez","Streets","Doja Cat","R & B","Streets","Doja Cat","Yes",5
+58,"Stage Left","Ramirez","Miracle","Madeon","EDM","Miracle","Madeon","yes",5
+59,"Stage Left","Ramirez","Wild Thoughts","Dj Khaled","Rap","Wild thoughts","Dj Khaled","Yes",2
+60,"Stage Left","Ramirez","Breezeblocks","Alt-J","Classical","Breezeblocks","Alt-J","yes",4
+61,"Stage Left","Arzadon","FIGHT!","Aests","EDM","Fight!","Aests","Yes",15
+62,"Stage Left","Arzadon","Kawaii Desho","Moe Shop","Future Bass","Kawaii Desho","Moe Shop","Yes",4
+63,"Stage Left","Arzadon","WWW","Moe Shop","Future Bass","WWW","Moe Shop","Yes",3
+64,"Stage Left","Arzadon","Crush On You","NERO","Dubstep","Crush On You","NERO","Yes",5
+65,"Stage Left","Arzadon","Crave You","Flight Facilities","Dubstep","Crave You","Flight Facilities","Yes",1
+66,"Stage Left","Arzadon","Kibou No Uta","Miura Jam","Anime","Kibou No Uta","Miura Jam","Yes",4
+67,"Stage Left","Arzadon","Make Her Say","Kid Kudi, Kanye West, Common","Rap","Make Her Say","Kid Kudi, Kanye West, Common","Yes",3
+68,"Stage Left","Arzadon","in your arms","Saib","Korean Acoustic","in your arms","Saib","Yes",4
+69,"Stage Left","Arzadon","skateboard p","elijah who","Lo-fi","I Am","Jake Bar","No",5
+70,"Stage Left","Arzadon","hitchuwithdawork","elijah who","Lo-fi","Random Stuff","Lil Davey^","No",7
+71,"Stage Left","Arzadon","ON TOP","the girl next door","Lo-fi","ON TOP","the girl next door","Yes",2
+72,"Stage Left","Arzadon","Flyday Chinatown","Yasuha","Japanese City Pop","Flyday Chinatown","Yasuha","Yes",5
+73,"Stage Left","Arzadon","Close","Ljones","Lo-fi","Close","Ljones","Yes",10
+74,"Stage Left","Arzadon","INNOCENCE","Eir Aoi","Anime","INNOCENCE","Eir Aoi","Yes",4
+75,"Stage Left","Arzadon","Shout Baby","Ryokuoushoku Shakai","Anime","Shout Baby (Instrumental)","Ryokuoushoku Shakai","No",5
+76,"Stage Left","La","Wrong","Luh-kel","Rap","Wrong","Luh-kel","yes",89
+77,"Stage Left","La","comethur","Jeremy Zucker","pop","comethr","Jeremy Zucker","yes",56
+78,"Stage Left","La","7 years","Lukas Graham","pop","7 years","Lukas","yes",58
+79,"Stage Left","La","Closer","Chainsmokes","pop","Closer","The Chainsmoker","yes",30
+80,"Stage Left","La","ANHS EMS","Chill and Free","pop",NA,NA,"no",90
+81,"Stage Left","La","31077","W/n","pop","3107","W/n","yes",-30
+82,"Stage Left","La","I don't know","Wean","pop","I don’t know","Wean","yes",30
+83,"Stage Left","La","Yeu vao mua dich","Chill and Free","pop","yeu vao mua dich","Chill and Free","yes",15
+84,"Stage Left","La","Say em","QNT","pop","Say em","QNT","yes",16
+85,"Stage Left","La","Hot blind","Drake","pop","Hot blind","Drake","yes",16
+86,"Stage Left","La","Happy for you","Feat Vu","Pop","Happy for you","Lukas","No",21
+87,"Stage Left","La","Stereo Heart","Adam Levine","Rap","Stereo Heart","Adam Levine","Yes",22
+88,"Stage Left","La","No no no","Apink","Kpop","Nonono","Apink","yes",45
+89,"Stage Left","La","Last call","Chill and Free","pop","Last call","QNT","No",32
+90,"Stage Left","La","pay phone","Maroon 5","pop","pay phone","Maroon 5","Yes",15
+91,"Stage Right","Ali","Peaches","Justin Bieber",NA,"Peaches","Dame Dame & Jordan Rys","No",4
+92,"Stage Right","Ali","Don't Wanna Know","Maroon 5",NA,"Don't Wanna Know","Maroon 5","Yes",13
+93,"Stage Right","Ali","Memories","Maroon 5",NA,"Memories Remix","Maroon 5 Feat. Nipsey Hussle &YG","No",6
+94,"Stage Right","Ali","comethru","Jeremy Zuker",NA,"comethru","Jeremy Zuker","Yes",4
+95,"Stage Right","Ali","One More Night","Maroon 5",NA,"One More Night","Maroon 5","Yes",3
+96,"Stage Right","Ali","Dusk Till Dawn","ZAYN Feat. Sia",NA,"Dusk Till Dawn","ZAYN Feat. Sia","Yes",6
+97,"Stage Right","Ali","Mood","24kGoldn Feat. iann dior",NA,"Mood","24kGoldn Feat. iann dior","Yes",2
+98,"Stage Right","Ali","On My Way","Alan Walker, Sabrina Carpenter& Farruko",NA,"On My Way","Alan Walker, Sabrina Carpenter& Farruko","Yes",1
+99,"Stage Right","Ali","I'm Not Her","Clara Mae",NA,"I'm Not Her","Clara Mae","Yes",5
+100,"Stage Right","Ali","Kings & Queens","Ava Max",NA,"Kings & Queens","Ava Max","Yes",6
+101,"Stage Right","Ali","Work From Home","Fifth Harmony Feat. Ty Dolla $Ign",NA,"Work From Home","Fifth Harmony Feat. Ty Dolla $Ign","Yes",8
+102,"Stage Right","Ali","Blinding Lights","The Weeknd",NA,"Blinding Lights","The Weeknd","Yes",2
+103,"Stage Right","Ali","Yummy","Justin Bieber",NA,"Yummy","Justin Bieber","Yes",6
+104,"Stage Right","Ali","Friends","Marshmello & Anne-Marie",NA,"Friends","Marshmello & Anne-Marie","Yes",7
+105,"Stage Right","Ali","Wonder","Shawn Mendes",NA,"Wonder","Shawn Mendes","Yes",2
+106,"Stage Right","Ouedraogo","Shape of You","Ed Sheeran",NA,"Shape of You","Ed Sheeran","Yes",NA
+107,"Stage Right","Ouedraogo","Counting Stars","OneRepublic",NA,"Counting Stars","OneRepublic","Yes",NA
+108,"Stage Right","Ouedraogo","Get Lucky","Daft Punk",NA,"Get Lucky","Daft Punk feat. Pharrell Williams","No",NA
+109,"Stage Right","Ouedraogo","The Beatles","Rain",NA,"The Beatles","Rain","Yes",NA
+110,"Stage Right","Ouedraogo","Muddy Waters","Rollin Stone",NA,"Muddy Waters","Rollin Stone","Yes",NA
+111,"Stage Right","Ouedraogo","Giveon","Heartbreak Anniversary",NA,"Giveon","Heartbreak Anniversary","Yes",NA
+112,"Stage Right","Ouedraogo","Outkast","Hey Ya!",NA,NA,NA,"No",NA
+113,"Stage Right","Ouedraogo","Like a Rolling Stone","Bob Dylan",NA,NA,NA,"No",NA
+114,"Stage Right","Ouedraogo","Aretha Franklin","Respect",NA,"Aretha Franklin","Respect","Yes",NA
+115,"Stage Right","Ouedraogo","Beyonce","Crazy in Love",NA,"Beyonce feat. Jay-Z","Crazy in Love","No",NA
+116,"Stage Right","Ouedraogo","Stevie Wonder","Superstition",NA,"Stevie Wonder","Superstition","Yes",NA
+117,"Stage Right","Ouedraogo","Jay Z","Empire State of Mind",NA,"Jay Z ft. Alicia Keys","Empire State of Mind","No",NA
+118,"Stage Right","Ouedraogo","Billy Idol","Mony Mony",NA,"Billy Idol","Mony Mony","Yes",NA
+119,"Stage Right","Ouedraogo","Bob Marley","No Woman No Cry",NA,"Bob Marley","No Woman No Cry","Yes",NA
+120,"Stage Right","Ouedraogo","yeleen","awatou",NA,NA,NA,"No",NA
+121,"Stage Right","Odiavbara","ye","BurnBoy","Afrobeat","ye","BurnBoy","yes",4
+122,"Stage Right","Odiavbara","essence","Wizkid","Afrobeat","essence","Wizkid","Yes",3
+123,"Stage Right","Odiavbara","wonder woman","Davido","Afrobeat","wonder woman","Davido","yes",7
+124,"Stage Right","Odiavbara","Alcohol","Joeboy","Afrobeat","Alcohol","Joeboy","yes",2
+125,"Stage Right","Odiavbara","Dior","Pop Smoke","HipHop","Dior","Pop Smoke","yes",2
+126,"Stage Right","Odiavbara","Eko","Kizz Daniel","Afrobeat","Eko","Kizz Daniel","yes",5
+127,"Stage Right","Odiavbara","High","Adekunle Gold","Afrobeat","High","Adekunle Gold","yes",6
+128,"Stage Right","Odiavbara","Bodak Yellow","Cardi B","Arobeat","Bodak Yellow","Cardi B","yes",2
+129,"Stage Right","Odiavbara","Sweet Lady","Tyrese","RnB","Sweet Lady","Tyrese","yes",2
+130,"Stage Right","Odiavbara","Tom Ford","JayZ","Rap","Tom Ford","JayZ","yes",4
+131,"Stage Right","Odiavbara","Diamonds","Rihana","RnB","Diamonds","Rihana","yes",3
+132,"Stage Right","Odiavbara","Way 2 sexy","Drake","Rap","Way 2 sexy","Drake","yes",8
+133,"Stage Right","Odiavbara","Loading","Olamide","Afrobeat","Loading","Olamide","yes",4
+134,"Stage Right","Odiavbara","levels","Flavour","Afrobeat","levels","Flavour","yes",3
+135,"Stage Right","Odiavbara","Go Crazy","Chris Brown","Afrobeat","Go Crazy","Chris Brown","yes",3
+136,"Stage Right","Vernon","PINK CITY","Pink Sweat$",NA,NA,NA,NA,NA
+137,"Stage Right","Vernon","Broken","Seether",NA,NA,NA,NA,NA
+138,"Stage Right","Vernon","Wagon Wheel","Darius Rucker",NA,NA,NA,NA,NA
+139,"Stage Right","Vernon","Go DJ","KAYTRANADA",NA,NA,NA,NA,NA
+140,"Stage Right","Vernon","I'll Come Too","James Blake",NA,NA,NA,NA,NA
+141,"Stage Right","Vernon","Ninety","Jaden",NA,NA,NA,NA,NA
+142,"Stage Right","Vernon","Don't Take Your Love Away","Avant",NA,NA,NA,NA,NA
+143,"Stage Right","Vernon","Two Occasions","The Deele",NA,NA,NA,NA,NA
+144,"Stage Right","Vernon","Breakdown","Mariah Carey",NA,NA,NA,NA,NA
+145,"Stage Right","Vernon","Fresh Is the Word","Mantronix",NA,NA,NA,NA,NA
+146,"Stage Right","Vernon","True Hustla","Twisted Black",NA,NA,NA,NA,NA
+147,"Stage Right","Vernon","In a Sentimental Mood","Duke Ellington & John Coltrane",NA,NA,NA,NA,NA
+148,"Stage Right","Vernon","Mayonaka no Door / Stay with Me","Miki Matsubara",NA,NA,NA,NA,NA
+149,"Stage Right","Vernon","Firefly","Mura Masa",NA,NA,NA,NA,NA
+150,"Stage Right","Vernon","Lil Pokey","No Answers No Peace",NA,NA,NA,NA,NA
+151,"Stage Right","Dang","Nothing to Hide","Cosmic Gate",NA,NA,NA,"Yes",NA
+152,"Stage Right","Dang","Lion (Extended Mix)","Jon Gurd",NA,NA,NA,"Yes",NA
+153,"Stage Right","Dang","Alliance (Extended Mix)","Sunny Lax",NA,NA,NA,"Yes",NA
+154,"Stage Right","Dang","The Baddest","K/DA, (G)I-DLE",NA,NA,NA,"Yes",NA
+155,"Stage Right","Dang","Summertime Cover","Natsumii Feat Lilypichu",NA,NA,NA,"Yes",NA
+156,"Stage Right","Dang","The Fear","Duke Dumont & Niia",NA,NA,NA,"Yes",NA
+157,"Stage Right","Dang","Moth To A Flame","Swedish House Mafia & The Weekend",NA,NA,NA,"Yes",NA
+158,"Stage Right","Dang","We Were Young","Gareth Emery Feat. Alex & Sierra",NA,NA,NA,"Yes",NA
+159,"Stage Right","Dang","Tribune, Chapter III","Shingo Nakamura & Stendahl",NA,NA,NA,"Yes",NA
+160,"Stage Right","Dang","The Promise (Toy Armada & DJ Grind 2016 Pride Mix)","Tony Moran",NA,NA,NA,"Yes",NA
+161,"Stage Right","Dang","The Promise","When In Rome",NA,NA,NA,"Yes",NA
+162,"Stage Right","Dang","Anywhere (Sagi Kariv Remix)","Rita Ora",NA,NA,NA,"No",NA
+163,"Stage Right","Dang","Never Enough (Toy Armada & Tommy Love REmix","Loren Allred",NA,NA,NA,"No",NA
+164,"Stage Right","Dang","Stand With You","Micah Wilshire",NA,NA,NA,"Yes",NA
+165,"Stage Right","Dang","Rinse & Repeat","Riton Feat. Kah-Lo",NA,NA,NA,"Yes",NA
+166,"Stage Right","Duong","Salt","Ava Max",NA,NA,NA,"Yes",1.26
+167,"Stage Right","Duong","Cold Heart","Dua Lipa",NA,NA,NA,"Yes",1.21
+168,"Stage Right","Duong","Loverboy","A-Wall",NA,NA,NA,"Yes",1.46
+169,"Stage Right","Duong","Motley Crue","Post Malone",NA,NA,NA,"Yes",0.93
+170,"Stage Right","Duong","stay with me","Sam Smith",NA,NA,NA,"Yes",1.23
+171,"Stage Right","Duong","NASA","Ariana Grande",NA,NA,NA,"Yes",0.97
+172,"Stage Right","Duong","Bad Habits","Ed Sheeran",NA,NA,NA,"Yes",1.03
+173,"Stage Right","Duong","When We Were Young","Adele",NA,NA,NA,"Yes",1.04
+174,"Stage Right","Duong","My Universe","Coldplay",NA,NA,NA,"Yes",0.85
+175,"Stage Right","Duong","Leave The Door Open","Bruno Mars",NA,NA,NA,"Yes",1.14
+176,"Stage Right","Duong","Counting Stars","One Republic",NA,NA,NA,"Yes",1.07
+177,"Stage Right","Duong","Love Somebody","Maroon 5",NA,NA,NA,"Yes",1.75
+178,"Stage Right","Duong","Tick Tock","Clean Bandit",NA,NA,NA,"Yes",0.92
+179,"Stage Right","Duong","Happier","Marshmello",NA,NA,NA,"Yes",0.96
+180,"Stage Right","Duong","The Nights","Avicii",NA,NA,NA,"Yes",0.93
+181,"Stage Right","Herrera","Flight 22","Kali Uchis",NA,"Flight 22","Kali Uchis","Yes",2
+182,"Stage Right","Herrera","Say So","Doja Cat",NA,"Say So","Doja Cat","Yes",3
+183,"Stage Right","Herrera","Rain on Me","Lady Gaga FT. Ariana Grande",NA,"Rain on Me","Lady Gaga FT. Ariana Grande","Yes",1
+184,"Stage Right","Herrera","Que Tiene?","Ximena Sarinana",NA,"Que Tiene?","Ximena Sarinana","Yes",3
+185,"Stage Right","Herrera","Amor","Los Autenticos Decadentes ft. Mon Laferte",NA,"Amor","Los Autenticos Decadentes ft. Mon Laferte","Yes",1
+186,"Stage Right","Herrera","Solo","Deborah Lemoine",NA,"Solo","Deborah Lemoine","Yes",3
+187,"Stage Right","Herrera","Somethin Stupid","Frank Sinatra FT. Nancy Sinatra",NA,"Somethin Stupid","Frank Sinatra FT. Nancy Sinatra","Yes",7
+188,"Stage Right","Herrera","Time","Pink Floyd",NA,"Time","Pink Floyd","Yes",3
+189,"Stage Right","Herrera","It Don't Mean A thing","Ella Fitzgerald FT. Duke Ellignton",NA,"It Don't Mean A thing","Ella Fitzgerald FT. Duke Ellignton","Yes",1
+190,"Stage Right","Herrera","Maybe","Ella Fitzgerald",NA,"Maybe","Ella Fitzgerald","Yes",1
+191,"Stage Right","Herrera","Who I am","Wade Bowen",NA,"Who I am","Wade Bowen","Yes",1
+192,"Stage Right","Herrera","Tell it to my heart","Meduza FT. Hozier",NA,"Tell it to my heart","Meduza FT. Hozier","Yes",1
+193,"Stage Right","Herrera","Feels Like Summer","Weezer",NA,"Feels Like Summer","Weezer","Yes",1
+194,"Stage Right","Herrera","Mardy Bum","Artic Monkeys",NA,"Mardy Bum","Artic Monkeys","Yes",1
+195,"Stage Right","Herrera","Around the World","Kings of Leon",NA,"Around the World","Kings of Leon","Yes",1
+196,"Stage Center","King","The Cisco kid","War",NA,"The Cisco kid","War","Yes",NA
+197,"Stage Center","King","Houses in motion","A Certain Ratio",NA,"Houses in motion","A Certain Ratio","Yes",NA
+198,"Stage Center","King","Houses in motion","Talking Heads",NA,"Houses in motion","Talking Heads","Yes",NA
+199,"Stage Center","King","Pocket calculator","Kraftwerk",NA,"Pocket calculator","Kraftwerk","Yes",NA
+200,"Stage Center","King","Hard to handle","Otis Redding",NA,"The happy song","Otis Redding","No",NA
+201,"Stage Center","King","Moby octopad","Yo La Tengo",NA,"nothing","nothing","No",NA
+202,"Stage Center","King","Mountain","Stereolab",NA,"nothing","nothing","No",NA
+203,"Stage Center","King","Alex Chilton","The Replacements",NA,"Alex Chilton","The Replacements","Yes",NA
+204,"Stage Center","King","Purple hat","Sofi Tukker",NA,"Purple hat","Sofi Tukker","Yes",NA
+205,"Stage Center","King","Technologic","Daft Punk",NA,"Technologic","Daft Punk","Yes",NA
+206,"Stage Center","King","Higher ground","Stevie Wonder",NA,"Higher ground","Stevie Wonder","Yes",NA
+207,"Stage Center","King","Jesus children of America","Stevie Wonder",NA,"Jesus children of America","Stevie Wonder","Yes",NA
+208,"Stage Center","King","Ben's my friend","Sun Kil Moon",NA,"Ben's my friend","Sun Kil Moon","Yes",NA
+209,"Stage Center","King","Melody Lee","The Damned",NA,"Melody Lee","The Damned","Yes",NA
+210,"Stage Center","King","Baby what you want me to do","Jimmy Reed",NA,"Baby what you want me to do","Jimmy Reed","Yes",NA
+211,"Stage Center","King","Guns of Brixton","The Clash",NA,"Guns of Brixton","The Clash","Yes",NA
+212,"Stage Center","King","Equal rights","Peter Tosh",NA,"Equal rights","Peter Tosh","Yes",NA
+213,"Stage Center","King","Guns of Brixton","Jimmy Cliff",NA,"Guns of Brixton","Jimmy Cliff","Yes",NA
+214,"Stage Center","King","Exploding head movie","Stereolab",NA,"Exploding head movie","Stereolab","Yes",NA
+215,"Stage Center","King","Jenny Ondioline","Stereolab",NA,"nothing","nothing","No",NA
+216,"Stage Center","King","Miss Modular","Stereolab",NA,"Miss Modular","Stereolab","Yes",NA
+217,"Stage Center","King","Super Falling Star","Stereolab",NA,"nothing","nothing","No",NA
+218,"Stage Center","King","Walking lightly","Junip",NA,"nothing","nothing","No",NA
+219,"Stage Center","King","Wasted days and wasted nights","Freddy Fender",NA,"Wasted days and wasted nights","Freddy Fender","Yes",NA
+220,"Stage Center","King","Wasted days and wasted nights","Charley Crockett",NA,"Wasted days and wasted nights","Charley Crockett","Yes",NA
+221,"Stage Center","King","Kung Fu","Curtis Mayfield",NA,"nothing","nothing","No",NA
+222,"Stage Center","King","Choctaw Bingo","Ray Wylie Hubbard",NA,"Choctaw Bingo","Ray Wylie Hubbard","Yes",NA

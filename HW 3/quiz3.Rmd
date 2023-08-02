@@ -1,0 +1,62 @@
+---
+title: "Quiz 3"
+output: html_notebook
+---
+Submit your .Rmd on Blackbaord AND submit this paper in class.  Write your answers on this paper.  There are 100 points, broken down like this:  
+
+ Problem | 1 | 2 | 3 | 4 | 5 | 6 | 7 
+ --------|---|---|---|---|---|---|--- 
+ Points | 10 | 20 | 10 | 10 | 10 | 20 | 20 
+ 
+##### Problem 1
+Suppose $T \sim beta(2,4)$.  Find $P(T > .70)$. 
+```{r}
+1 - pbeta(.7, 2, 4)
+```
+##### Problem 2
+Suppose $Y \sim beta(3, 3)$.  Find $P(Y \leq .45)$ and $P(Y > .45)$. 
+```{r}
+pbeta(.45, 3, 3)
+1 - pbeta(.45, 3, 3)
+```
+##### Problem 3
+Suppose $U \sim beta(2,2.5)$.  Find $P(U < .5)$. 
+```{r}
+pbeta(.5, 2, 2.5)
+```
+##### Problem 4
+Suppose $V \sim beta(1, 1)$.  Find $P(.1 < V < .77)$. 
+```{r}
+pbeta(.77,1,1) - pbeta(.1,1,1)
+```
+##### Problem 5
+Suppose $X \sim beta(5, 3)$.  Find $P(X > .5 \ \ | \ \ X  \leq .8)$. 
+```{r}
+(pbeta(.8,5,3) - pbeta(.5,5,3))/ pbeta(.8,5,3)  
+```
+##### Problem 6 - make these sketches on this paper
+(a) Pick ONE problem from above and make a sketch to tell the story. 
+(b) One beta distribution is exactly like the uniform distribution.  Sketch its probability density function (pdf).  
+$$(a) \hspace{100mm} (b) \hspace{100mm}$$
+
+##### Problem 7
+Pick any two problems from above and make an R plot to tell the story.  Choosing Problem 5 is worth ten bonus points.  
+```{r}
+#P(T > .70)
+v <- 1 - pbeta(.7,2,4)
+xvec <- seq(0,1,by=.01)
+yvec <- dbeta(xvec, 2,4)
+plot(xvec, yvec, type = 'l')
+lines(c(.7,.7), c(-1, dbeta(.7, 2,4)), col=2) 
+text(.75,.1,'.70')
+
+
+#P(U < .5)
+f <- pbeta(.5, 2, 2.5)
+xvec <- seq(0,1,by=.01)
+yvec <- dbeta(xvec, 2,2.5)
+plot(xvec, yvec, type = 'l')
+lines(c(.5,.5), c(-1, dbeta(.5, 2,2.5)), col=1) 
+text(.3,.5,'.50')
+
+```

@@ -1,0 +1,85 @@
+---
+title: "Week7 Tuesday"
+output: html_notebook
+---
+
+```{r }
+#install.packages("palmerpenguins")
+#install.packages('dplyr')
+#install.packages('magrittr')
+#install.packages('sqldf')
+
+rm(penguins)
+library(palmerpenguins)  # for data
+library(dplyr)
+library(magrittr) # for the pipe
+library(sqldf)  # really just a function called sqldf()
+
+penguins$species <- as.character(penguins$species)  # converting factors to character
+penguins$island <- as.character(penguins$island)
+penguins$sex <- as.character(penguins$sex)
+
+# modify penguins by removing rows that contain NA
+penguins <- na.omit(penguins) 
+# questions below refer to his modified version of penguins
+```
+
+# SQL is old, OLD
+Many versions exist, not all free, we are using SQLite when we call `sqldf()` without any extra arguments  (other versions of SQL include mySQL, SQLServer, msSQL, postgreSQL, etc. )
+
+```{r}
+# make a character string with a query like the ones on the whiteboard
+qstr <- 'Select * from penguins where body_mass_g < 3000'
+sqldf(qstr)
+
+qstr <- 'Select * from penguins where body_mass_g < 3000' 
+```
+
+So it works.  Now run queries from whiteboard. 
+
+TONIGHT:  run help(paste) and look at examples for all the things you can do!
+
+```{r}
+qstr1 <- 'Select island, species, year, max(bill_length_mm) as maxbill'
+qstr2 <- 'from penguins '
+qstr3 <- 'where sex = "male"'
+qstr4 <- 'group by island, species, year'
+qstr <- paste(qstr1, qstr2, qstr3, qstr4)
+qstr
+
+sqldf(qstr)
+
+help(paste)
+
+```
+Now the one with `top5Adelie` and `bottom5Adelie`
+```{r}
+qstr <- 'SELECT * FROM penguins WHERE species = "Adelie" ORDER BY bill_length_mm DESC LIMIT 5'
+
+(top5Adelie <- sqldf(qstr))
+
+qstr <- 'SELECT * FROM penguins WHERE species = "Adelie" ORDER BY bill_length_mm  LIMIT 5'
+(bottom5Adelie <- sqldf(qstr))
+```
+
+# counting records in SQL
+
+use the same code again ...
+
+```{r}
+qstr <- 'SELECT COUNT(*) FROM penguins WHERE species = "Chinstrap" '
+sqldf(qstr)
+```
+you can count in combinatin with group by,
+like we did in dplyr using n()
+```{r}
+qstr1 <- 'Select island, species, year, max(bill_length_mm) as maxbill, count(*) as n_penguins'
+qstr2 <- 'from penguins '
+qstr3 <- 'where sex = "male"'
+qstr4 <- 'group by island, species, year'
+qstr <- paste(qstr1, qstr2, qstr3, qstr4)
+qstr
+
+sqldf(qstr)
+```
+

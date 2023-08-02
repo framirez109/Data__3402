@@ -1,0 +1,64 @@
+
+---
+title: "hw5 importing data"
+output: html_notebook
+---
+### Backstory
+Suppose you've been asked to study data from an old database which no longer exists.  You ask everyone you know for help.  Four old colleagues come through with the files **file1, file2, file3, file4**.  The colleagues can be called colleague1, colleague2, etc., but it will make a better story if you give them real names.  You have to import the data and then decide which file or files to use for your study.  
+
+That means comparing the files and trying to detect errors and inconsistencies.   The R `==` operator can help.  
+
+### Instructions
+(@) This is an individual assignment but it's ok to work together, especially for the last part.  
+
+(@) Make a folder for this hw according to your usual system for managing files and classes and homework.  Call it **hw5** or **HW5** or **homework5** or whatever name you usually use.  Make a subfolder called **hw5data**.  Save the four data files to this folder.  Don't change their names. 
+
+
+(@) Import the four data files to R and call the data.frames `dat1, ...., dat4`.  Use base R commands from the `read.*()` family.  Opening the file in **notepad** or something similar will help you decide which `read.*()`  command to use.  Include the complete path to your file in your calls to `read.*()`.  Extra credit for building each path with a root and a leaf.  The root is the same every time and ends with **.../hw5data/**.  The leaf is **file1, file2**, etc.  Use `paste()` or `paste0()` to combine the root and leaf into a single path.  Pass this path to `read.*()`.  
+
+(@) Decide which data.frame is best to use for your study.  They might all be good, or some of them might have issues. The R `==` operator can help you detect errors or inconsistencies. Write a paragraph that summarizes your findings for the four data.frames and your decision about which to use.  
+
+
+```{r}
+library(readr)
+path1 <- "/Users/geovaniiramirez/Documents/Data_3402/hw5/hw5data/file1"
+dat1 <- read.csv(path1)
+
+path2 <- "/Users/geovaniiramirez/Documents/Data_3402/hw5/hw5data/file2"
+dat2 <- read.csv(path2,sep = ';',row.names = NULL)
+
+path3 <- "/Users/geovaniiramirez/Documents/Data_3402/hw5/hw5data/file3"
+dat3 <- read.csv(path3, sep ='\t')
+
+path4 <- "/Users/geovaniiramirez/Documents/Data_3402/hw5/hw5data/file4"
+dat4 <- read.csv(path4,sep = ' ')
+dat1
+dat2
+dat3
+dat4
+
+x <- dim(dat1)
+x 
+length(x)
+y <- dim(dat2)
+y
+(x == y) 
+sum(x==y)  #  count the matches
+sum(!(x==y))
+
+x <- dat3$carname
+x 
+length(x)
+y <- dat4$carname
+y
+
+
+sum(x==y)  #  count the matches
+sum(!(x==y))
+
+
+```
+
+Data1 was the easiest to work with. The data required no change and was pretty easy to download. Data2 had 33 variables. In dataset 2 there seems to be small change in the Datsun 710 qsec from.18.61 to 18.66. To seperate the data we used ';' to make it usable. Data set 3 has 31 variables. To become usable we had to seperate the table using '\t. Data set 4 has we were able to seperate the columns using sep = ' ' pretty much spacing it out. Ultimatly, I believe using dataset 1 would be the best for our study since it has the most complete data. 
+
+

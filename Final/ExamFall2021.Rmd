@@ -1,0 +1,261 @@
+---
+title: "DATA 3402 Final Exam Fall 2021"
+output: 
+  html_notebook:
+    number_sections: false
+---
+**Setup:**  You probably have these installed already.  
+```{r }
+#install.packages('sqldf')
+#install.packages('tidyverse')
+
+library(sqldf)
+library(tidyverse) 
+rm(penguins) # to clear out any old penguin data
+```
+
+### Data
+Import **penguins.exam.csv** and call the data.frame `penguins.exam`.  It should be 333x8. 
+```{r}
+penguins <- read.csv("~/Documents/Data_3402/penguins.csv")
+penguins
+```
+**THERE ARE 85 pts on the test.  pts are listed with each question. ** 
+
+### Counting penguins using R (*28 pts*)
+Use R and use the data.frame **penguins.exam**. 
+
+a) (*2 pts*) Count the penguins by species.  
+```{r}
+penguins %>% group_by(species) %>% summarize(count = n())
+penguins %>% arrange(bill_length_mm)
+
+clean_names(penguins)
+penguins <- na.omit(penguins) 
+penguins
+```
+
+b) (*2 pts*) Count the penguins by sex.
+```{r}
+penguins %>% group_by(sex) %>% summarize(count = n())
+```
+c) (*2 pts*) Count the penguins by year.
+```{r}
+penguins %>% group_by(year) %>% summarize(count = n())
+```
+d) (*2 pts*) Count the penguins by island.
+```{r}
+penguins %>% group_by(island) %>% summarize(count = n())
+```
+e) (*2 pts*) Count the penguins by species and island. 
+```{r}
+penguins %>% group_by(species, island) %>% summarize(count = n())
+```
+f) (*10 pts*) In the previous question, I got `species` and `island` by choosing TWO grouping variables from the set 
+$G = \{sex, island, species, year\}$.  I could have chosen `year` and `species` or some other pair.  Count the penguins using EVERY possible pair of grouping variables.  You don't have to do $\{species, island\}$ again.   
+```{r}
+penguins %>% group_by(species, year) %>% summarize(count = n())
+penguins %>% group_by(species, sex) %>% summarize(count = n())
+penguins %>% group_by(island, species) %>% summarize(count = n())
+penguins %>% group_by(island, year) %>% summarize(count = n())
+penguins %>% group_by(island, sex) %>% summarize(count = n())
+penguins %>% group_by(sex, island) %>% summarize(count = n()) 
+penguins %>% group_by(sex, species) %>% summarize(count = n())
+penguins %>% group_by(sex, year) %>% summarize(count = n())
+```
+g) (*4 pts*) Consider subsets of size THREE from $G$.  These are sets like $\{species, sex, island\}$.  Count the penguins using EVERY possible size THREE subset of $G$.  
+```{r}
+penguins %>% group_by(species, sex) %>% summarize(count = n())
+penguins %>% group_by(species, island) %>% summarize(count = n())
+penguins %>% group_by(island, species) %>% summarize(count = n())
+penguins %>% group_by(island, sex) %>% summarize(count = n())
+penguins %>% group_by(sex, island) %>% summarize(count = n())
+penguins %>% group_by(sex, species) %>% summarize(count = n())
+
+```
+h) (*4 pts*) Count the by penguins by species, island, sex, and year.  That's the only size FOUR subset of $G$.  
+```{r}
+penguins %>% group_by(species, island, sex, year) %>% summarize(count = n())
+```
+
+### (*10 pts*) Repeat step **g)** from the **counting penguins problem** with these changes:  
+- Use **SQL** instead of **R**.  
+- Find **average flipper length** instead of the **count** for each grouping.  
+```{r}
+library(dplyr)
+library(magrittr)
+library(sqldf) 
+
+
+qstr <- 'select species, sex, min(bill_length_mm) as avg_flip_length from penguins group by species, sex'
+sqldf(qstr)
+
+qstr <- 'select species, island, min(bill_length_mm) as avg_flip_length from penguins group by species, island'
+sqldf(qstr)
+
+
+qstr <- 'select island, species, min(bill_length_mm) as avg_flip_length from penguins group by island, species'
+sqldf(qstr)
+
+
+qstr <- 'select island, sex, min(bill_length_mm) as avg_flip_length from penguins group by island, sex'
+sqldf(qstr)
+
+
+qstr <- 'select sex, island, min(bill_length_mm) as avg_flip_length from penguins group by sex, island'
+sqldf(qstr)
+
+
+qstr <- 'select sex, species, min(bill_length_mm) as avg_flip_length from penguins group by sex, species'
+sqldf(qstr)
+
+
+
+
+```
+
+
+### (*5 pts*) Repeat step **h)** from the **counting penguins problem** with these changes:  
+- Use **SQL** instead of **R**.  
+- Find **maximum bill length** instead of **count**.  
+```{r}
+penguins %>% group_by(species, island, sex, year) %>% summarize(max = max(bill_length_mm))
+```
+
+### Shazam (*23 pts*)
+
+a) (*5 pts*) Import the file **shazam.YOURLASTNAME.csv** which you built in hw9.  Call the new data.frame `oursongs`.   What are its dimensions? **The dimensions of our songs are 222 10** 
+
+```{r}
+oursongs <- read.csv("~/Documents/Data_3402/shazam.RAMIREZ1.cvs")
+oursongs
+
+dim(oursongs)
+oursongs$Score <- ifelse(oursongs$Correct == 'Yes',1,0)
+
+```
+
+
+
+b) (*8 pts*) Use `dplyr` on `oursongs` to produce a new data.frame `shazam.by.person` with these columns:  
+
+- LastName
+- $n$ = number of songs tested, 
+- $x$ = number of correct Shazam responses, 
+- $n - x$ = number of incorrect Shazam responses, and 
+- $\hat p = x/n =$  proportion of songs which Shazam identified correctly
+
+You decide the exact column names.   Display `shazam.by.person`.  
+
+
+```{r}
+
+template = oursongs %>% head(15)
+template[1:n,1:ncol(template)] <-  NA
+
+oursongs1 <- oursongs %>% group_by(Correct) %>% summarize(count = n())
+oursongs1
+
+
+template$LastName <- 'Ramirez'
+template
+template$GroupName<- NA
+template$Song<- NA
+template$Artist<- NA
+template$Genre<- NA
+template$ShazamSong <- NA
+template$ShazamArtist <- NA
+template$Duration<- NA
+template$Correct <- NA
+template$testedsongs <- nrow(oursongs)
+template$correctshazamresponses <- 181 #values gotten from oursongs1
+template$incorrectshazamresponses <- 26 #values gotten from oursongs1
+template$songsidentifiedcorrectly <- 181/222
+
+template
+
+shazam.by.person <- rbind(oursongs,template)
+```
+
+
+c) (*5 pts*) Extract the following subsets from `shazam.by.person`: 
+
+- the rows where Shazam was perfect
+- the rows where Shazam missed one song
+- the rows where Shazam was wrong more than once
+- the rows with the two smallest values of $\hat p$ 
+
+```{r}
+
+```
+
+c) (*5 pts*) Use `dplyr` on `oursongs` to produce `shazam.by.group`.  It should have the same columns as `shazam.by.person` except the first column should be `GroupName` instead of `LastName`.  Before you build it, ask yourself how many rows it should have.  Display `shazam.by.group`.  Which group observed the most Shazam failures?  
+
+```{r}
+
+```
+
+
+### Using `tribble()` (*5 pts*) 
+Pick any five people in the class and use `tribble()` to make a data.frame with five columns: **group name from hw9, first name, last name, favorite song title and artist**.  Any song is ok --it doesn't have to come from the Shazam data and it doesn't have to be their real favorite. 
+```{r}
+five_people <- tribble(~groupName, ~firstname, ~lastName, ~favoritesongtitle,~favoritartist,
+                       #===================
+'left','Francisco','Ramirez','Miracle','Madeon') 
+```
+
+### The beta family of distributions (*14 pts*)
+- (*4 pts*) Suppose $V \sim beta(5,3)$.  Which is larger, $P(V < .5)$ or $P(V > .5)$?
+** $P(V > .5)$ is larger**
+```{r}
+pbeta(.5, 5, 3) # V < .5
+1 - pbeta(.5, 5, 3) #V > .5
+```
+
+- (*5 pts*) Suppose $W \sim beta(10,5)$.  Plot the pdf of $W$.  
+```{r}
+v <- beta(5,10)
+xvec <- seq(0,1,by=.01)
+yvec <- dbeta(xvec, 5,10)
+plot(xvec, yvec, type = 'l')
+```
+
+- (*5 pts*)Suppose $Y \sim beta(5,10)$.  Find $P(Y > .45)$ and make a plot to tell the story.  
+```{r}
+1 - pbeta(.45, 5, 10)
+
+#P(Y > .45)
+v <- 1 - pbeta(.45,5,10)
+xvec <- seq(0,1,by=.01)
+yvec <- dbeta(xvec, 5,10)
+plot(xvec, yvec, type = 'l')
+lines(c(.45,.45), c(-1, dbeta(.2, 5,10)), col=2) 
+text(.50,.1,'.45')
+```
+
+### Bayes (*3 pts extra credit*) 
+Professor X is estimating the parameter $p = P(Shazam \ \ is \ \ correct)$.  Her prior distribution is $p \sim beta(3,12)$. Suppose she observes the the same songs as JPK and gets the same results.  What is her posterior distribution for $p$?  Make a plot with both the prior and the posterior.  Did the data make her opinion of Shazam go up or down?  
+```{r}
+###
+```
+
+### Yet another bonus question! (*3 pts extra credit*)
+Suppose $X \sim beta(5,5)$.  Find $$P(.2 < X < .5  \ \ | \ \ .3 < X < .8)$$ 
+and make a plot to tell the story. 
+```{r}
+install.packages("Tmisc")
+library(Tmisc)
+data("quartet")
+view(quartet)
+quartet %>% group_by(set) %>%
+  summarize(mean(x),sd(x),mean(y),cor(x,y))
+
+ggplot(quartet, aes(x,y)) + geom_point() + geom_smooth(method = lm,se = FALSE) + facet_wrap(~set)
+```
+
+```{r}
+install.packages("datasauRus")
+library('datasauRus')
+ggplot(datasaurus_dozen, aes(x=x,y=y,colour=dataset))  + geom_point() +theme_void() theme(legend.position = "none") + facet_wrap()
+```
+

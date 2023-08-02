@@ -1,0 +1,53 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Cmd+Shift+Enter*. 
+
+```{r}
+rm(penguins)
+library(palmerpenguins)  # for data
+library(dplyr)
+library(tribble)
+library(magrittr) # for the pipe
+library(sqldf) #
+```
+
+
+```{r}
+mybeta <- function(x,a,b){
+  return(1/beta(a,b) * x^(a-1) * (1-x)^(b-1))
+}
+
+for(i in 1:10){
+  g <- mybeta(i/2,i +2 ,3)
+  print(g)
+}
+
+
+
+
+windowgroup <- tribble(
+  ~x,~shape2, ~shape2, ~mydbeta, ~dbeta,
+  .1,7,5, NA, NA,
+  .2,4,.2, NA, NA,
+  .3,.5,.75, NA, NA,
+  .4,.65,.20, NA, NA,
+  .5,.49,.17, NA, NA,
+)
+
+windowgroup
+
+
+
+plot(,,type='n')
+
+xvec <- seq(0,1, by = .01)
+
+```
+
+
+

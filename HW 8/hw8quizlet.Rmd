@@ -1,0 +1,89 @@
+---
+title: "quizlet which comes between hw8 and quiz3"
+output: html_notebook
+---
+
+Submit your .Rmd on Blackbaord AND submit this paper in class.  Write your answers on this paper.  There are 100 points, broken down like this:  
+
+ Problem | 1 | 2 | 3 | 4 | 5 | 6 | 7 
+ --------|---|---|---|---|---|---|--- 
+ Point
+ s | 20 | 10 | 10 | 10 | 10 | 20 | 20 
+ 
+#### Problem 1
+Suppose $W \sim beta(3.5, 2.5)$.  Find $P(W \leq .65)$ and $P(W > .65)$. 
+```{r}
+pbeta(.65, 3.5, 2.5)
+1 - pbeta(.65, 3.5, 2.5)
+```
+#### Problem 2
+Suppose $Y \sim beta(2,1)$.  Find $P(Y > .125)$. 
+```{r}
+1 - pbeta(.125, 2, 1)
+```
+#### Problem 3
+Suppose $X \sim beta(.8, .8)$.  Find $P(.3 < X < .7)$. 
+```{r}
+pbeta(.7,.8,.8) - pbeta(.3, .8,.8) 
+```
+#### Problem 4
+Suppose $V \sim beta(4,4)$.  Find $P(V > .5)$. 
+```{r}
+1 - pbeta(.5, 4, 4)
+```
+#### Problem 5
+Use $V$ from the previous problem.  Find $P(V \leq .75 | V > .5)$. 
+```{r}
+(pbeta(.75,4,4) - pbeta(.5,4,4))/ pbeta(.5,4,4) 
+```
+#### Problem 6
+Pick any two problems from above and make a sketch on this paper to tell the story. 
+
+<br>
+<br>
+<br> 
+<br>
+<br>
+<br> 
+#### Problem 7
+Pick any two problems from above and make a plot in R to tell the story. 
+```{r}
+
+#Plot $P(Y > .125)$. 
+
+1 - pbeta(.125, 2, 1)
+v <- 1 - pbeta(.125, 2, 1)
+#plot for that problem
+#plot pdf, slice itm color it, label it
+xvec <- seq(0,1,by=.10)
+yvec <- dbeta(xvec, 2,1)
+plot(xvec, yvec, type = 'l')
+abline(h=0, col=5) ; abline(v=0,col=5)
+#dot at x = .5
+points(.125, 0,pch=19)
+#runs a line through point at .5
+#abline(v =.5)
+#answer goes on the right
+text(.6,.5,'.125')
+
+
+#Plot $P(V > .5)$.
+
+v <- 1 - pbeta(.5,4,4)
+#plot for that problem
+#plot pdf, slice itm color it, label it
+xvec <- seq(0,1,by=.01)
+yvec <- dbeta(xvec, 4,4)
+plot(xvec, yvec, type = 'l')
+abline(h=0, col=5) ; abline(v=0,col=5)
+#dot at x = .5
+points(.5, 0,pch=19)
+#runs a line through point at .5
+#abline(v =.5)
+lines(c(.5,.5), c(0, dbeta(.5, 4,4)), col=5) # vertical line that's just right
+#answer goes on the right
+text(.6,.5,'.5')
+
+
+```
+

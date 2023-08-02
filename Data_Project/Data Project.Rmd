@@ -1,0 +1,254 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+This data contains information about user performance's when tracking their workouts. The dataset has the following files:
+
+DailyActivity
+DailyCalories
+DailyIntensities
+DailySteps
+
+
+
+The questions we want to answer:
+
+1) What are some trends we can spot?
+2) Does certain types of excercises lead to higher levels of calorie burning
+3) How can we use this information for marketing purposes? 
+
+
+GATHERING THE DATA 
+
+The first step is getting the data. To do this we will use read_csv to pass the path through it. 
+
+```{r}
+install.packages("reshape2")
+library(tidyverse)
+library(reshape2)
+daily_activity <- read_csv("dailyActivity_merged.csv")
+daily_calories <- read_csv("dailyCalories_merged.csv")
+daily_intensities <- read_csv("dailyIntensities_merged.csv")
+daily_steps <- read_csv("dailySteps_merged.csv")
+heart_rate <- read_csv("heartrate_seconds_merged.csv")
+hourly_Calories <- read_csv("hourlyCalories_merged.csv")
+hourly_intensities <- read_csv("hourlyIntensities_merged.csv")
+hourly_steps1 <- read_csv("hourlySteps_merged.csv")
+sleepday <- read_csv("sleepDay_merged.csv")
+
+```
+
+
+
+```{r}
+n_distinct(daily_activity$Id)
+n_distinct(daily_calories$Id)
+n_distinct(daily_intensities$Id)
+n_distinct(daily_steps$Id)
+n_distinct(hourly_intensities$Id)
+n_distinct(hourly_steps1$Id)
+n_distinct(sleepday$Id)
+```
+
+```{r}
+sum(duplicated(sleepday))
+sum(duplicated(hourly_steps))
+```
+
+
+CLEANING THE DATA
+
+
+I want to remove any duplicate values since that will cause errors in our analysis. To do this we use drop_na(). 
+
+```{r}
+hourly_steps <- hourly_steps %>%
+  distinct() %>%
+  drop_na()
+
+hourly_intensities <- hourly_intensities %>%
+  distinct() %>%
+  drop_na()
+
+daily_activity <- daily_activity %>%
+  distinct() %>%
+  drop_na()
+
+hourly_intensities1 <- hourly_intensities1 %>% 
+  distinct() %>% 
+  drop_na()
+
+daily_sleep <- sleepday %>% 
+  distinct() %>% 
+  drop_na()
+```
+
+
+We want to format our dates to make easier to work with. To do this we use the format function along with the as.Date to make those changes. I want to format the date time and add a new column called "Day_of_the_week" to the data. 
+
+```{r}
+#Change the date format and add a column with day of the week
+daily_activity$ActivityDate<- as.POSIXct(daily_activity$ActivityDate, format= "%m/%d/%Y")
+daily_activity<-transform(daily_activity,Day_of_the_week=weekdays(ActivityDate))
+
+daily_intensities$ActivityDay <- as.POSIXct(daily_intensities$ActivityDay, format= "%m/%d/%Y")
+daily_intensities <- transform(daily_intensities, Day_of_the_week = weekdays(ActivityDay))
+
+daily_steps$ActivityDay <- as.POSIXct(daily_steps$ActivityDay, format= "%m/%d/%Y")
+daily_steps <- transform(daily_steps, Day_of_the_week = weekdays(ActivityDay))
+
+
+hourly_Calories$ActivityHour <- as.POSIXct(hourly_Calories$ActivityHour, format= "%m/%d/%Y")
+hourly_Calories <- transform(hourly_Calories, Day_of_the_week = weekdays(ActivityHour))
+
+hourly_intensities$ActivityHour <- as.POSIXct(hourly_intensities$ActivityHour, format= "%m/%d/%Y %I:%M:%S %p",tz=Sys.timezone()) 
+hourly_intensities <- transform(hourly_intensities, Day_of_the_week = weekdays(ActivityHour))
+
+hourly_steps <- hourly_steps1 %>% 
+  rename(date_time = ActivityHour) %>% 
+  mutate(date_time = as.POSIXct(date_time,format ="%m/%d/%Y %I:%M:%S %p" , tz=Sys.timezone()))
+hourly_steps <- transform(hourly_steps,Day_of_the_week = weekdays(date_time))
+
+daily_sleep
+daily_sleep <- daily_sleep %>%
+  rename(date = SleepDay) %>%
+  mutate(date = as.POSIXct(date,format ="%m/%d/%Y %I:%M:%S %p" , tz=Sys.timezone()))
+
+
+``` 
+
+I notice that the data tracks either day, hours, or minutes. Since I don't want to work with many too many datasets I'll combine them using merge. 
+
+```{r}
+#joins daily_activity and daily calories tables using Id and Calories
+activity_calories = full_join(daily_activity, daily_calories, by= c("Id","Calories"))
+
+
+#removes the last extra column from the table
+activity_calories <- activity_calories[,-17]
+
+#joins daily_intensities and daily steps tables using Id, AcitivityDay, and Day of the Week
+daily_workout = full_join(daily_intensities, daily_steps, by=c("Id","ActivityDay","Day_of_the_week"))
+
+
+daily_activity
+daily_sleep
+daily_activity_sleep <- merge(daily_activity, daily_sleep, by=c("id", "date"))
+glimpse(daily_activity_sleep)
+```
+
+Analysis 
+
+
+
+```{r}
+summary_distance <- activity_calories %>% group_by(Day_of_the_week) %>% 
+  summarise_at(c(LightActiveDistance= "LightActiveDistance", ModeratelyActiveDistance = "ModeratelyActiveDistance",VeryActiveDistance= "VeryActiveDistance"),mean) %>% arrange(desc(VeryActiveDistance))
+summary_distance
+```
+
+This table demonstrates that on Wednesday had the highest activity distance. The lowest activity distance was reported on Friday. 
+
+
+```{r}
+summary_minutes <- activity_calories %>% group_by(Day_of_the_week) %>% 
+  summarise_at(c(SedentaryMinutes = "SedentaryMinutes", LightlyActiveMinutes = "LightlyActiveMinutes", FairlyActiveMinutes = "FairlyActiveMinutes", VeryActiveMinutes = "VeryActiveMinutes"), mean) %>% arrange(desc(VeryActiveMinutes))
+summary_minutes
+
+
+summary_daily <- activity_calories %>% group_by(ActivityDate) %>% 
+  summarise_at(c(SedentaryMinutes = "SedentaryMinutes", LightlyActiveMinutes = "LightlyActiveMinutes", FairlyActiveMinutes = "FairlyActiveMinutes", VeryActiveMinutes = "VeryActiveMinutes"), mean) %>% arrange(desc(VeryActiveMinutes))
+
+summary_daily
+
+
+```
+
+The the most active time was during Saturday while the least active was Sunday. 
+
+```{r}
+summary_weekly <- activity_calories%>%
+  group_by(Day_of_the_week)%>%
+  summarise_at(c(avg_steps="TotalSteps",avg_distance="TotalDistance",avg_sedentary_mins="SedentaryMinutes",avg_calories="Calories",avg_active_mins="VeryActiveMinutes"),mean) %>% arrange(avg_calories)
+summary_weekly
+
+activity_calories
+
+```
+
+Sunday saw the most calories burned on average while Friday had the least amount of calories burned. 
+
+```{r}
+daily_activity %>% 
+  group_by(TotalSteps, Calories) %>% 
+  ggplot(aes(x = TotalSteps, y = Calories, color = Calories)) +
+  geom_point() +
+  geom_smooth() + 
+  theme(legend.position = c(.8, .3),
+        legend.spacing.y = unit(1, "mm"), 
+        panel.border = element_rect(colour = "black", fill=NA),
+        legend.background = element_blank(),
+        legend.box.background = element_rect(colour = "black")) +
+  labs(title = 'Calories burned by total steps taken',
+       y = 'Calories',
+       x = 'Total Steps')
+```
+There seems to be a positive trend between the number of steps taken and the calories burned. 
+
+```{r}
+ggplot(hourly_steps) + geom_col(aes(x= reorder(Day_of_the_week,-StepTotal), y = StepTotal, fill=Day_of_the_week )) + labs(title="Calories by day of the week", x= "Day of the week", y="Calories burned") 
+```
+The day with the highest calories burned was Tuesday followed by wednesday. The least calories burned were on Sunday and Monday. 
+
+
+
+```{r}
+
+
+ggplot(hourly_intensities) + geom_col(aes(x= reorder(Day_of_the_week,-AverageIntensity), y = AverageIntensity, fill=Day_of_the_week )) + labs(title="Average Intensity by day of the week", x= "Day of the week", y="Intensity") 
+```
+
+Naturaly, the highest intensity was on Tuesday and Wednesday 
+
+```{r}
+ggplot(data= daily_activity,aes(x= Day_of_the_week,y=VeryActiveDistance )) + geom_boxplot()
+
+```
+
+
+```{r}
+
+summary_daily
+ggplot(summary_daily, aes(x=ActivityDate ,y=LightlyActiveMinutes)) + geom_line()
+```
+
+
+
+```{r}
+
+
+mean_calories <- daily_activity %>% group_by(Day_of_the_week) %>% summarise(mean_calories = mean(Calories),mean_distance = mean(TotalDistance)) %>% arrange(mean_calories, mean_distance) 
+mean_calories
+
+```
+
+Interestingly enough, Saturday is not the day that burns the most calories. It is Tuesday. I assume that user's activity is slightly more intense during the weekday. Additionally, Thursday
+had the lowest calories burned even though it covered a longer distance than Sunday and Friday. This may be caused by the activity less intense on Thursday than it is on the other days. 
+
+
+
+```{r}
+
+newdata <- mutate(daily_activity, total_mints  = VeryActiveDistance + ModeratelyActiveDistance + LightlyActiveMinutes)
+
+ggplot(data = newdata, aes(x= total_mints, y = Calories)) + geom_point(alpha= 0.7,shape="circle", size= 0.5, colour="blue") + geom_smooth(method = "lm") + labs(title = "Relation between Working out time vs. Calories burned")
+
+```
+
+
+
+
+
+
+

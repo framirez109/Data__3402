@@ -1,0 +1,25 @@
+---
+title: "Week 13: Shazam data import"
+output: html_notebook
+---
+
+ 
+
+```{r}
+#install.packages('readxl')
+library(readxl)
+library(tidyverse)
+```
+
+```{r}
+hw7_stageleft <- read_xlsx("hw7.stageleft.xlsx")
+hw7_stageleft
+
+sheet2 <- read_xlsx("hw7.stageleft.xlsx",sheet = 'Gaby')
+sheet4 <- read_xlsx("hw7.stageleft.xlsx",sheet = 'Marcus')
+sheet6 <- read_xlsx("hw7.stageleft.xlsx",sheet = 'Gaby')
+sheet3 <- read_xlsx("hw7.stageleft.xlsx",sheet = 'Gaby')
+sheet5 <- read_xlsx("hw7.stageleft.xlsx",sheet = 'Francisco')
+sheet7 <- read_xlsx("hw7.stageleft.xlsx",sheet = 'Tanh La')
+```
+

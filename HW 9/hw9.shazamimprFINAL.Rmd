@@ -1,0 +1,294 @@
+---
+title: 'hw9: Shazam data import'
+author: 'Marcus Arzadon, Gabriel Ixcolin, Sharrah Allen, Than La, Azfar Vahidy, Francisco Ramirez'
+output:
+  pdf_document: default
+  html_notebook: default
+---
+
+##### Resources
+This hw requires the packages `tidyverse` and `readxl`.  Maybe more.   Data files are **hw7.stageleft.xlsx** and **Stage_Right_Project.xlsx**.  Code we wrote in class last week (Week 13) will help.  
+
+```{r}
+library(tidyverse)
+library(readxl)
+```
+
+
+##### 1.  
+Import the first tab from **hw7.stageleft.xlsx** and call the new data.frame `shazam.dat`.  
+
+```{r}
+shazam.dat <- read_xlsx('hw7.stageleft.xlsx',sheet=1)
+shazam.dat$Group_Member[shazam.dat$Group_Member == "Thanh La"] = "La"
+shazam.dat$Group_Member[shazam.dat$Group_Member == "Fransisco"] = "Ramirez"
+shazam.dat$Group_Member[shazam.dat$Group_Member == "Marcus Arzadon"] = "Arzadon"
+shazam.dat$Group_Member[shazam.dat$Group_Member == "Azfar Vahidy"] = "Vahidy"
+shazam.dat$Group_Member[shazam.dat$Group_Member == "Sharrah Allen"] = "Allen"
+shazam.dat$Group_Member[shazam.dat$Group_Member == "Gabriela Ixcolin"] = "Ixcolin"
+
+names(shazam.dat)[2] = "LastName"
+names(shazam.dat)[1] = "GroupName"
+names(shazam.dat)[6] = "SongStartTime"
+names(shazam.dat)[7] = "SongStopTime"
+names(shazam.dat)[8] = "ShazamSong"
+names(shazam.dat)[9] = "ShazamArtist"
+names(shazam.dat)[10] = "Correct"
+
+```
+
+
+##### 2. 
+The original instructions from hw7 are pasted below.  Review these and decide as a group whether to make any changes to `shazam.dat`.  We decided last week to definitely keep the GENRE column that appears in the Stage Left hw7.  Include a  bulleted list in your .Rmd describing each column in your final version of `shazam.dat`.   This is the place to describe any changes you are making to the raw version of `shazam.dat`.  The final version of `shazam.dat` will get used in the next step.  
+
+- Group_Name: the group that the entry/ member belongs to
+- Group_Member: name of the person who made the entry
+- Song: song of that is being shazamed
+- Artist: the correct/ original artist of the song
+- Genre: category/ genre of the song
+- Song Start Time: start of shazam in time of the song
+- Song Stop Time: time in the song that shazam "got" the song
+- Shazam Song: Song that shazam suggests you are listening to
+- Shazam Artist: Artist shazam believes is performing/ created the song
+- Correct?: did shazam get it right or wrong
+
+**Changes**
+- create a col called duration that measures seconds shazam took to solve the song
+- Change group members to lastname. will hold only the last name of the person's last name who made the entry
+
+```{r}
+shazam.dat <- shazam.dat %>% mutate(Duration = as.integer(difftime(SongStopTime,SongStartTime,units="mins"))) %>% select(-c(SongStopTime, SongStartTime))
+```
+
+```{r}
+shazam.dat <- shazam.dat %>% mutate(ID = 1:nrow(shazam.dat)) %>%  select(ID,everything())
+shazam.dat
+```
+
+
+##### 3. 
+Now consider the Stage Right hw7 data in **Stage_Right_Project.xlsx**.  Import each tab of this spreadsheet and add its data to `shazam.dat`.  That will happen with a command like `shazam.dat <- rbind(shazam.dat, newtab)`.  Before you run this you'll have to make the columns of `newtab` match the columns of `shazam.dat`.  That will take some work and that's the point of this hw.    
+
+```{r}
+path <- 'Stage_Right_Project.xlsx'
+(sheet1 <- read_xlsx(path,sheet=1))
+rowcount <- nrow(sheet1)
+
+
+template <- shazam.dat %>% head(15)
+template <- template[-c(seq(1,15)),]
+dim(template)
+template[1:rowcount,1:ncol(template)] <- NA
+head(template)
+```
+
+```{r}
+excel_sheets(path)[1]
+```
+
+
+```{r}
+template$ID<- sheet1$Labels
+template$GroupName<- "Stage Right"
+template$LastName<- "Ali"
+template$Song<- sheet1$Song
+template$Artist<- sheet1$Artist
+template$Genre<- NA
+template$ShazamSong<- sheet1$`Shazam Song`
+template$ShazamArtist<- sheet1$`Shazam Artist`
+template$Duration<- sheet1$`Time(secs)`
+condition1 <- sheet1$Song == sheet1$`Shazam Song`
+condition2 <- sheet1$Artist == sheet1$`Shazam Artist`
+template$Correct <- ifelse(condition1 & condition2 ,'Yes','No')
+rbind(shazam.dat,template) -> shazam.dat
+shazam.dat
+```
+Repeat the process to add the next sheet to `shazam.dat`
+```{r}
+path <- 'Stage_Right_Project.xlsx'
+(sheet2 <- read_xlsx(path,sheet=2))
+rowcount <- nrow(sheet2)
+
+
+template <- shazam.dat %>% head(15)
+template <- template[-c(seq(1,15)),]
+dim(template)
+template[1:rowcount,1:ncol(template)] <- NA
+head(template)
+```
+```{r}
+template$ID<- NA
+template$GroupName<- "Stage Right"
+template$LastName<- excel_sheets('Stage_Right_Project.xlsx')[2]
+template$Song<- sheet2$song_searched
+template$Artist<- sheet2$artist_searched
+template$Genre<- NA
+template$ShazamSong<- sheet2$song_returned
+template$ShazamArtist<- sheet2$artist_returned
+template$Duration<- NA
+condition1 <- sheet2$song_searched == sheet2$song_returned
+condition2 <- sheet2$artist_searched == sheet2$artist_returned
+template$Correct <- ifelse(condition1 & condition2 ,'Yes','No')
+rbind(shazam.dat,template) -> shazam.dat
+shazam.dat
+```
+
+```{r}
+path <- 'Stage_Right_Project.xlsx'
+(sheet3 <- read_xlsx(path,sheet=3))
+rowcount <- nrow(sheet3)
+
+
+template <- shazam.dat %>% head(15)
+template <- template[-c(seq(1,15)),]
+dim(template)
+template[1:rowcount,1:ncol(template)] <- NA
+head(template)
+```
+```{r}
+as.integer(substr(sheet3$`Time  Duration`,1,1))
+```
+```{r}
+# add data from sheet3 to new template
+template$GroupName <- "Stage Right"
+template$LastName <- excel_sheets('Stage_Right_Project.xlsx')[3]
+template$Song <- sheet3$Song
+template$Artist <- sheet3$Artist
+template$Genre <- sheet3$Category
+# since there's no incorrect responses, we can re-use the Artist and Song columns 
+template$ShazamSong <- sheet3$Song
+template$ShazamArtist <- sheet3$Artist
+template$Correct <- sheet3$`Returned or Not`
+template$Duration <- as.integer(substr(sheet3$`Time  Duration`,1,1))
+#add template to shazam.dat
+rbind(shazam.dat,template) -> shazam.dat
+```
+```{r}
+shazam.dat
+```
+
+```{r}
+path <- 'Stage_Right_Project.xlsx'
+(sheet4 <- read_xlsx(path,sheet=4))
+rowcount <- nrow(sheet4)
+
+
+template <- shazam.dat %>% head(15)
+template <- template[-c(seq(1,15)),]
+dim(template)
+template[1:rowcount,1:ncol(template)] <- NA
+head(template)
+```
+```{r}
+template$ID<- sheet4$`song label`
+template$GroupName<- "Stage Right"
+template$LastName<- excel_sheets('Stage_Right_Project.xlsx')[4]
+template$Song<- sheet4$Song
+template$Artist<- sheet4$Artist
+template$Genre<- NA
+template$ShazamSong<- NA
+template$ShazamArtist<- NA
+template$Duration<- NA
+template$Correct <- NA
+rbind(shazam.dat,template) -> shazam.dat
+shazam.dat
+```
+```{r}
+path <- 'Stage_Right_Project.xlsx'
+(sheet5 <- read_xlsx(path,sheet=5))
+rowcount <- nrow(sheet5)
+
+
+template <- shazam.dat %>% head(15)
+template <- template[-c(seq(1,15)),]
+dim(template)
+template[1:rowcount,1:ncol(template)] <- NA
+head(template)
+```
+```{r}
+template$ID<- sheet5$...1
+template$GroupName<- "Stage Right"
+template$LastName<- excel_sheets('Stage_Right_Project.xlsx')[5]
+template$Song<- sheet5$Song
+template$Artist<- sheet5$Artist
+template$Genre<- NA
+template$ShazamSong<- NA
+template$ShazamArtist<- NA
+template$Duration<- NA
+template$Correct <- ifelse(sheet5$Result == 1,"Yes","No")
+rbind(shazam.dat,template) -> shazam.dat
+shazam.dat
+```
+```{r}
+path <- 'Stage_Right_Project.xlsx'
+(sheet6 <- read_xlsx(path,sheet=6))
+rowcount <- nrow(sheet6)
+
+
+template <- shazam.dat %>% head(15)
+template <- template[-c(seq(1,15)),]
+dim(template)
+template[1:rowcount,1:ncol(template)] <- NA
+head(template)
+```
+```{r}
+template$ID<- sheet6$song
+template$GroupName<- "Stage Right"
+template$LastName<- excel_sheets('Stage_Right_Project.xlsx')[6]
+template$Song<- sheet6$`correct song`
+template$Artist<- sheet6$Artist
+template$Genre<- NA
+template$ShazamSong<- NA
+template$ShazamArtist<- NA
+template$Duration<- sheet6$`time to discover (sec)`
+template$Correct <- ifelse(sheet6$`correct song` == sheet6$`returned song`,"Yes","No")
+rbind(shazam.dat,template) -> shazam.dat
+shazam.dat
+```
+```{r}
+path <- 'Stage_Right_Project.xlsx'
+(sheet7 <- read_xlsx(path,sheet=7))
+rowcount <- nrow(sheet7)
+
+
+template <- shazam.dat %>% head(15)
+template <- template[-c(seq(1,15)),]
+dim(template)
+template[1:rowcount,1:ncol(template)] <- NA
+head(template)
+```
+```{r}
+template$ID<- sheet7$Label
+template$GroupName<- "Stage Right"
+template$LastName<- excel_sheets('Stage_Right_Project.xlsx')[7]
+template$Song<- sheet7$Chosen_SongName
+template$Artist<- sheet7$Chosen_Artist
+template$Genre<- NA
+template$ShazamSong<- sheet7$Shazaam_SongName
+template$ShazamArtist<- sheet7$Shazaam_Artist
+template$Duration<- sheet7$Time_sec
+condition1<- sheet7$Chosen_SongName == sheet7$Shazaam_SongName
+condition2<- sheet7$Chosen_Artist == sheet7$Shazaam_Artist
+template$Correct <- ifelse(condition1 & condition2,"Yes","No")
+rbind(shazam.dat,template) -> shazam.dat
+shazam.dat
+```
+
+
+
+
+
+
+##### Original specs from hw7
+Select a random song, play it for Shazam, give Shazam 10 seconds to respond, record its guess for the song (or record NA if Shazam failed to come back in 10 seconds).  Performing the experiment generates an outcome.  Each student should perform the experiment 15 times. 
+
+Include the name of your hw group, your last name, a number to label your songs (you can use 1,2,3,.... or whatever), the date and time of the experiment, the song and artist that you played, the song and artist returned by Shazam (or NA's if Shazam fails), was Shazam right or wrong, etc.  
+
+Etc. means include more variables if you want.  Like maybe how long it took for Shazam to return its answer, or what part of the song you played, or what category of music was the song.  
+
+
+
+
+
+
+

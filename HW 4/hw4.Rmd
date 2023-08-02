@@ -1,0 +1,72 @@
+---
+title: "hw4:  using dplyr"
+output: html_notebook
+---
+This is a group assignment.  Each group will submit one .Rmd file plus image files, etc.
+
+1.  Clean and stylish code.  Clear and grammatically correct markdown.  Write sentences and paragraphs, not words and phrases.  Check your spelling.  
+
+1.  Load the **palmerpenguins** package and use the **penguins** dataset for this hw.  Provide an overview of the data set.  That means one or more paragraphs supported by one or more code chunks.  Things to report: the origin of the data, size of the data set, variable names and units.  Include two maps (why two?).  Include images of the penguins (ok to use the ones from lecture).   If any of the columms are factors, coerce them to character.  Report the number of $NA$'s for each column. 
+
+1.  Add the columns we created in class.  
+1.  Use `dplyr` to extract the following subsets.  Report the size of each subset in your markdown text.  This is an opportunity to use inline code references in your notebook.  
+    a. penguins from Biscoe Island sampled after 2007 (all columns? YES because it doesn't give specifics)
+    a. bill-related variables for female Chinstrap penguins sampled in 2008
+    a. flipper-related variables for male penguins from Dream Island
+    a. the top ten male penguins based on body mass
+    a. the top twenty Chinstrap penguins based on bill volume
+    
+    
+```{r}
+library(tidyverse)
+library(palmerpenguins) 
+library(dplyr)
+```
+
+```{r}
+
+penguins %>% mutate(chest_width_mm = (.8 * flipper_length_mm),flipper_spam_mm = ((2 * flipper_length_mm) + chest_width_mm))
+
+penguins <- penguins %>% mutate(bill_volume = 3.14 * (flipper_length_mm/2)^2 * (flipper_length_mm/3))
+penguins
+vector <- c(1,1,2,3,4)
+vector
+```
+
+
+penguins from Biscoe Island sampled after 2007 (all columns? YES because it doesn't give specifics)
+
+```{r}
+penguins %>% filter(island == 'Biscoe', year >= 2007) %>% nrow() -> answer
+answer
+```
+
+    a. bill-related variables for female Chinstrap penguins sampled in 2008
+
+```{r}
+penguins %>% filter(sex == 'female',species == 'Chinstrap',year == 2008) %>% select(bill_length_mm, bill_depth_mm)%>% nrow() -> answer
+```
+    a. flipper-related variables for male penguins from Dream Island
+
+```{r}
+penguins %>% filter(sex == 'male',island == 'Dream') %>% select(flipper_length_mm)%>% nrow() -> answer
+answer
+```
+
+    a. the top ten male penguins based on body mass
+
+```{r}
+penguins %>% filter(sex == 'male') %>% arrange(desc(body_mass_g)) %>% head(10)%>% nrow() -> answer
+```
+    a. the top twenty Chinstrap penguins based on bill volume
+
+```{r}
+penguins %>% filter(species == 'Chinstrap') %>% arrange(desc(bill_volume)) %>% head(20)%>% nrow() -> answer
+```
+
+
+```{r}
+penguins %>% select(species)
+```
+
+

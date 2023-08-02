@@ -1,0 +1,126 @@
+---
+title: 'Final Exam Take-home Problem'
+output:
+  pdf_document: default
+  html_notebook: default
+---
+
+### This problem is part of the final exam. 
+Start working on it now and submit it before the final exam.  The due date is in Blackboard.  This part is worth 15 points.  The part in class will be worth 85 points.   
+
+### General instructions
+In hw9 you built a data.frame `shazam.dat` with all the songs from every student.  In this problem you'll get my songs, add them to `shazam.dat, and write the resulting data.frame to file called **shazam.csv**.  During the in-class exam next week, you'll use **shazam.csv** for some of the questions.   (So make sure you can read your **shazam.csv** before Tuesday!)
+
+#### 1.  
+Run the code below to produce the data.frame `shazam.jpk` containing the data for my songs.  
+
+I entered **same** when Shazam's artist was the same as mine and when Shazam's song was the same as mine.  I entered **nothing** for song and artist if Shazam was still thinking at the 10-second mark.  
+
+Display the first 3 rows and the last 3 rows of `shazam.jpk`.  
+```{r}
+library(tidyverse)
+```
+
+
+```{r}
+shazam.jpk <- tribble(~artist.jpk, ~song.jpk, ~artist.shz, ~song.shz, 
+#===================
+'War','The Cisco kid', 'same', 'same', 
+'A Certain Ratio', 'Houses in motion', 'same', 'same',
+'Talking Heads') 
+```
+
+```{r}
+first_three <-  head(shazam.jpk, 3)
+first_three
+
+last_three <- tail(shazam.jpk,3)
+last_three
+```
+
+#### 2.  
+Let $n$ represent the number of songs I tested, and let $x$ represent the number that Shazam got correct.  Compute $n$, $x$, and $n-x$ from `shazam.jpk`. What does $n-x$ represent?  Compute $\hat p$ the fraction that Shazam got correct.  What does $\hat q = 1 - \hat p$ represent?  
+
+ANSWER:  
+n -> 27
+$x -> 20
+n-x -> 7
+hat p = 0.7407407
+hat q  = 0.2592593
+
+n-x represents the number of songs that were guessed incorrectly.
+hatq represents the percentage of songs guessed incorrectly.
+
+```{r}
+
+cond1 <- shazam.jpk$artist.shz == 'same'
+cond2 <- shazam.jpk$song.shz == 'same'
+
+n <-  nrow(shazam.jpk)
+x <- shazam.jpk %>% filter(cond1, cond2) 
+x = nrow(x)
+wrong <-  n - x
+wrong
+hat_p <-  x/n
+hat_q <- 1- hat_p
+hat_p
+hat_q
+```
+
+#### 3.  
+Add the data in `shazam.jpk` to your `shazam.dat`.  The code you wrote for hw9 can be used for this.  I worked alone on my sheet, but let's say I was working in a group called 'Stage Center'.   
+
+How many rows are in `shazam.dat` now? 
+
+ANSWER:  **222 rows**
+```{r}
+shazam.dat <- read.csv("shazam.cvs")
+```
+```{r}
+template = shazam.dat %>% head(15)
+template[1:n,1:ncol(template)] <-  NA
+```
+```{r}
+cond1 <- shazam.jpk$artist.shz == 'same'
+cond2 <- shazam.jpk$song.shz == 'same'
+
+template$GroupName<- "Stage Center"
+template$LastName<- "King"
+template$Song<- shazam.jpk$song.jpk
+template$Artist<- shazam.jpk$artist.jpk
+template$Genre<- NA
+template$ShazamSong <- ifelse(cond2, shazam.jpk$song.jpk, shazam.jpk$song.shz)
+template$ShazamArtist <- ifelse(cond1, shazam.jpk$artist.jpk, shazam.jpk$artist.shz)
+template$Duration<- NA
+template$Correct <-  ifelse(template$Song == template$ShazamSong & template$Artist == template$ShazamArtist, "Yes", "No")
+```
+```{r}
+shazam.dat <- rbind(shazam.dat,template)
+shazam.dat$ID <-  1: nrow(shazam.dat)
+tail(shazam.dat, 3)
+
+nrow(shazam.dat)
+```
+
+
+#### 4.  
+How many artists do you recognize in `shazam.jpk`? I'm just curious, this isn't part of the exam.  You can use `unique()` on the artist column to get rid of the duplicates.  
+
+ANSWER:  **Daft punk, talking heads, and the clash**
+```{r}
+Artist <-  unique(shazam.jpk$artist.jpk)
+Artist
+```
+#### 5.  
+Save `shazam.dat` to a file called **shazam.YOURLASTNAME.csv**.   
+```{r}
+write.csv(shazam.dat,"shazam.RAMIREZ1.cvs", row.names = FALSE)
+work_file <-  read.csv("shazam.RAMIREZ1.cvs")
+work_file
+shaz
+```
+
+
+```{r}
+```
+

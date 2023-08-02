@@ -1,0 +1,198 @@
+---
+title: "Week 12:  all the way with Bayes"
+output: html_notebook
+---
+
+![](revbayes.jpg)
+
+
+### Bayes rule
+
+$$
+P(A|B)  =  P(B | A) \frac{P(A)}{P(B)} 
+$$
+
+### Bayes' rule also works for pdf's
+
+Start w definition of conditional pdf: 
+ 
+$$f(x,y) = f(x|y) f(y) \quad and \quad f(x,y) = f(y|x) f(x)$$
+LHS are the same so  $f(x|y) f(y) = f(y|x) f(x)$.  Rearrange this to get **Bayes rule for pdf's**:
+$$f(x|y)  =  f(y|x)\frac{ f(x)}{f(y)} \quad and \quad f(y|x)  =  f(x|y)\frac{ f(y)}{f(x)}$$
+
+
+### Same thing, but renamed for Bayesian setting
+Bayesians are more likely to write it like this:  
+$$\pi(\theta|x)  =  f(x|\theta)\frac{ \pi(\theta)}{f(x)}$$
+
+- rv's $X$ and $Y$ become rv's $X$ and $\theta$
+- $X$ = the random observable (could be vector-valued)
+- $x$ = the data, the realized value of $X$
+- $\theta$ = the unknown, **unobservable** parameter(s) of $f_X(x)$. 
+- $\pi(\theta)$ = pdf of $\theta$  (Bayesians treat $\theta$ as a random variable) 
+- $\pi(\theta |x)$ = conditional pdf of $\theta$ given $X=x$
+
+### Same thing, with pdfs interpreted 
+$$\pi(\theta|x)  =  f(x|\theta)\frac{ \pi(\theta)}{f(x)}$$
+ 
+- $\pi(\theta)$ = pdf of $\theta \ \ \equiv$ the **prior** distribution of $\theta$, reflects our belief about $\theta$ **before** we observe $X$ 
+- $\pi(\theta |x)$ = pdf of $\theta$ conditional on $X=x \ \ \equiv$ the **posterior** distribution of $\theta$
+- $\pi(\theta |x)$  reflects our \alert{updated} belief about $\theta$ **after** we observe $X=x$
+- $f(x|\theta)$ = pdf of X given $\theta$ (we usually call this $f(x)$ because we are not thinking of $\theta$ as random, i.e. we are thinking like **frequentists** = non-Bayesians) 
+
+### Statisticians are lazy
+Here's a trick we use a lot:  
+$$\pi(\theta|x)  =  f(x|\theta)\frac{ \pi(\theta)}{f(x)}$$
+ 
+Bayesian wants the LHS; that means working out the RHS which can be complicated. 
+Here's a trick that can help:  The denominator $f(x)$ is just a constant once we plug in $x$. It will come out in the wash when we figure out the **form** of the RHS; 
+and constants will be whatever is required to make RHS a pdf; so we can write this:
+$$\pi(\theta|x)  \propto  f(x|\theta) \pi(\theta)$$
+where $\propto$ means 'is proportional to'; RHS still contains the **kernel** of a pdf and that's enough.  
+
+### Example: Assume a beta prior distribution for $\theta$ and observe $X \sim binomial(n, \theta)$.
+This the best example ever; used by Rev. Bayes himself; illustrates the best features of Bayesian approach.  
+
+- 'beta prior' means $\theta \sim Beta(\alpha, \beta)$ where hyperparams $\alpha$ and $\beta$ are chosen to represent our informed belief about $\theta$ 
+- $X \sim Binomial(n, \theta)$ is dist of $X$ **given** $\theta$,  we call this our **model** 
+
+Starting with this: 
+$$ \pi(\theta|x)  \propto  f(x|\theta) \pi(\theta) $$
+and specifying what's on the RHS gives this:  
+$$\pi(\theta|x)  \propto (\text{binomial pdf where } x \text{ is known and } p = \theta) \times (\text{beta pdf for } \theta)$$
+
+Change the words to math: 
+
+$$\pi(\theta|x) \propto {n \choose x} \theta^x (1-\theta)^{n-x}
+\ \times \ \frac{1}{B(\alpha, \beta)} \ \theta^{\alpha-1}(1-\theta)^{\beta-1}$$ 
+
+Combine like terms: 
+
+$$\pi(\theta|x) \propto {n \choose x} 
+\ \frac{1}{B(\alpha, \beta)} \ \theta^{\alpha+x-1}(1-\theta)^{\beta+n-x-1}$$
+
+Get rid of the constants at the front, the part that doesn't depend on $\theta$, and we can write this: 
+$$\pi(\theta|x) \propto \theta^{\alpha+x-1} (1-\theta)^{\beta+n-x-1}$$
+ ### What remains is the kernel of the pdf, the part involving $\theta$ . . .
+ Remember $\theta$ is the rv here.  Think of it as the same $x$ we've seen all semester: 
+ 
+ $$x^{\alpha+x-1} (1-x)^{\beta+n-x-1}$$
+Look through your mind or the internet for a pdf with $x$ in a formula like this one ...
+
+Looking ....
+
+Looking ...
+
+The **winner** is THE BETA PDF
+
+
+### Bayesians are smiling now. 
+We just nailed the so-called **posterior distribution**, the distribution of the unknown parameter $\theta$ **conditional on the data**.  It combines information in the prior distribution $\pi(\theta) = dbeta(\alpha, \beta)$ (which was specified by the analyst) with the information given by the data: $x$ successes and $n-x$ failures.    
+
+Bayesians love this example because the prior and posterior are **both** betas.  It doesn't always work out that way.  Here it worked only because we chose the binomial model for the data.  When it works out like this we say we have the **conjugate prior** for our model.  
+
+
+#### WE STOPPED HERE ON TUESDAY 9 NOV
+
+### Example finally
+Remember when the Rockets were good? 
+
+![](harden.jpg)
+
+### Let's estimate $\theta$ = probability that James Harden makes a free throw.  
+
+### Before getting data, specify our prior beliefs about $\theta$.  
+Let's have five of us specify priors.  That means choosing values for alpha and beta (shape1 and shape2)
+```{r}
+alpha1 <- 1  # XXX has no opinion at all, never watches ESPN 
+beta1 <- 1
+# 
+alpha2 <- 19  # XXX follows basketball and is thus pretty certain
+beta2 <- 1
+# # 
+alpha3 <- 8  # JPK has JH confused with Dwight Howard
+beta3 <- 12
+# # 
+alpha4 <- 1 #Dr. shoemaker # XXX is ANGRY that JH left Houston, chooses her prior out of spite
+beta4 <- 100
+# # 
+alpha5 <- .1  # XXX  can't remember if JH was really good or really bad
+beta5 <- .1
+```
+
+### Plot prior pdf's for these 5 people: 
+```{r}
+xvec <- seq(-.1, 1.1, by = .01)
+plot(xvec, dbeta(xvec,alpha1, beta1), type='l', ylim=c(0, 15))
+lines(xvec, dbeta(xvec,alpha2, beta2), col=2, lwd=2)
+lines(xvec, dbeta(xvec,alpha3, beta3), col=3, lwd=2)
+lines(xvec, dbeta(xvec,alpha4, beta4), col=4, lwd=2)
+lines(xvec, dbeta(xvec,alpha5, beta5), col=6, lwd=2)
+title('Prior distributions for 5 very different people')
+```
+
+Specifying the prior can be done any time. Now we need to collect some data. 
+Now JH plays for the Brooklyn Nets.  
+Let's use data from the Nets' game versus our Rockets on 3 March 2021.    
+Use the link below to find the box score for this game. 
+
+<https://www.nba.com/stats/player/201935/boxscores-scoring/>
+
+#### How many free throws did JH take in this game?  How many makes? 
+
+### Use the data from the box score to get the posterior dist for each person
+Use the update rule we derived above: 
+
+If we use a binomial model for the data and our prior distribution for $\theta$ is $beta(\alpha, \beta)$, then the posterior distribution is $beta(\alpha+x, \beta+n-x)$.  The thing to notice is that posterior parameters combine information from the prior ($\alpha$ and $\beta$) 
+and information from the data ($x$ and $n$).  
+
+```{r}
+xvec <- seq(-.1, 1.1, by = .01)
+x <- ?? # since JH made 5 free throws in the 3 March game ()
+n <-  ?? # since JH attempted 7 free throws in the 3 March gameFTA = 7 in the 3 Mach game 
+plot(xvec,  dbeta(xvec,alpha1+x, beta1+n-x), type='l', ylim=c(0, 10), lwd=3)
+lines(xvec, dbeta(xvec,alpha2+x, beta2+n-x), col=2, lwd=3)
+lines(xvec, dbeta(xvec,alpha3+x, beta3+n-x), col=3, lwd=3)
+lines(xvec, dbeta(xvec,alpha4+x, beta4+n-x), col=4, lwd=3)
+lines(xvec, dbeta(xvec,alpha5+x, beta5+n-x), col=6, lwd=3)
+title('Posterior versus prior distributions after game on 3 March')
+## add plots of prior distributions for comparison to posteriors
+lines(xvec, dbeta(xvec,alpha1, beta1), col=1, lwd=1)
+lines(xvec, dbeta(xvec,alpha2, beta2), col=2, lwd=1)
+lines(xvec, dbeta(xvec,alpha3, beta3), col=3, lwd=1)
+lines(xvec, dbeta(xvec,alpha4, beta4), col=4, lwd=1)
+lines(xvec, dbeta(xvec,alpha5, beta5), col=6, lwd=1)
+```
+
+Four of the posteriors are shifted to the right relative to their priors.   For these individuals, watching the game caused them to raise their opinion of JH.  The red prior is shifted left slightly.  This is because if you believe (like ??) JH shoots with theta over .8, 5 out of 7 is a below average night. 
+
+# Now use the next game to add more data
+In the next Brooklyn Nets game JH shoots ?? for ?? (FTM = ??, FTA = ??).  
+Make the same set of plots and note how posteriors move.  
+
+```{r}
+xvec <- seq(-.1, 1.1, by = .01)
+x <- 5 + 9 # JH made 5 in first game, 9 in the second game 
+n <- 7 + 9 # JH attempted 7 in the first game, 9 in the next game 
+plot(xvec,  dbeta(xvec,alpha1+x, beta1+n-x), type='l', ylim=c(0, 10), lwd=3)
+lines(xvec, dbeta(xvec,alpha2+x, beta2+n-x), col=2, lwd=3)
+lines(xvec, dbeta(xvec,alpha3+x, beta3+n-x), col=3, lwd=3)
+lines(xvec, dbeta(xvec,alpha4+x, beta4+n-x), col=4, lwd=3)
+lines(xvec, dbeta(xvec,alpha5+x, beta5+n-x), col=6, lwd=3)
+title('Posterior versus prior distributions after second game')
+## add plots of prior distributions for comparison to posteriors
+lines(xvec, dbeta(xvec,alpha1, beta1), col=1, lwd=1)
+lines(xvec, dbeta(xvec,alpha2, beta2), col=2, lwd=2)
+lines(xvec, dbeta(xvec,alpha3, beta3), col=3, lwd=1)
+lines(xvec, dbeta(xvec,alpha4, beta4), col=4, lwd=1)
+lines(xvec, dbeta(xvec,alpha5, beta5), col=6, lwd=1)
+```
+Now all 5 move further to the right and all 5 tighten up more.  
+
+### Two ways to think about what we just did ...
+
+1. We specified our priors, watched TWO games, updated (with x=5+9=14, n=7+9=16) to get posteriors; or ...
+
+2. We specified our priors, watched ONE game, updated (with x=5, n=7) to get posteriors.  Then we took those posteriors as NEW PRIORS, watched a second game, updated (with x = 9, n = 9) to get new posteriors. 
+
+

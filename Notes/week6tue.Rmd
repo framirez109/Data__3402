@@ -1,0 +1,186 @@
+---
+title: "Data transformation:  aggregating data with `summarize()`"
+output:
+  html_notebook: default
+  pdf_document: default
+---
+
+
+
+![](dplyr.jpg)
+
+```{r }
+# install.packages("dplyr")
+# install.packages("palmerpenguins")
+# install.packages("magrittr")
+library(palmerpenguins)  # for data
+library(dplyr)
+library(magrittr) # for the pipe
+```
+Ch3 of the paper book *R4DS*, Ch5 of the online book.  
+
+
+
+```{r paged.print=TRUE}
+dim(penguins)
+head(penguins)  # a tibble is a kind of data.frame
+penguins$species <- as.character(penguins$species)  # converting factors to character just in case
+penguins$island <- as.character(penguins$island)
+penguins$sex <- as.character(penguins$sex)
+head(penguins) # factors are gone
+```
+
+
+
+
+
+### Make a toy dataset for examples.
+
+```{r paged.print=TRUE}
+set.seed(314159)  # to synchronize our random number generators
+nrows <- dim(penguins)[1]
+nrows.to.select <- 10
+rows.to.select <-   sample(1:nrows,size=10,replace=FALSE) #  choosing 10 random rows from total of nrows
+toypenguins <- penguins[rows.to.select,]
+toypenguins
+```
+
+
+
+
+### dplyr = package for working with data, including subsetting
+Five key functions:
+
+1. `filter()`: select rows based on column values
+1. `select()`: select and reorder columns based on their names
+1. `arrange()`:  reorder rows
+1. `mutate()`: create new columns, often from existing columns
+1. `summarize()`:  aggregate values in one column based on values in another. 
+
+Know the logical operators: **==, !=, &, |, xor(), <, >, <=, >=** and also &&, ||, and the negation operator **!** can precede any logical expression.  For long expressions parentheses might be necessary -- for the sake of logic or for the sake of readability. Assigning a long expression its own variable name also improves readability.  Use  `attach()...detach()` on a data.frame to make its column names visible as variables to R.  
+See *R4DS* for helper functions `starts_with(), ends_with(), contains(), matches(), num_range()`.  Base R function `subset()` does both `filter()` and `select()`
+
+Use the helper function `desc()` on a column name to sort in descending order.  
+
+
+### Using the pipe
+
+Demonstrating the pipe is easier than describing it, so consider this **Example:  Extract the five largest female Adelie penguins sampled in 2009. Use the penguins dataset.**
+```{r}
+head(penguins)
+```
+
+
+```{r}
+# without the pipe: 
+filter(penguins, sex=='female')
+```
+
+
+```{r}
+step2 <- arrange(step1, desc(body_mass_g))
+step3 <- head(step2, 5)  # or step2[1:5,]
+#step3
+
+head(arrange(filter(penguins, sex=='female', year==2009, species=='Adelie'), desc(body_mass_g)), 5)
+# they happened in this order:  filter, arrange, head
+
+# with the pipe, we can do it left to right and without the nesting f(g(h(x))): 
+
+filter(penguins, sex=='female', year==2009, species=='Adelie') %>% arrange(desc(body_mass_g)) %>% head(5)
+#OR EVEN BETTER LIKE THIS:
+penguins %>% filter(sex=='female', year==2009, species=='Adelie') %>% arrange(desc(body_mass_g)) %>% head(5)
+
+# sometimes things are complicated and you can't just ignore the input, then use "."
+
+penguins %>% filter(., sex=='female', year==2009, species=='Adelie') %>% arrange(., desc(body_mass_g)) %>% head(., 5)
+```
+
+
+
+### Using `mutate()` to add new columns
+New columns usually depend on the original columns -- they are **functions** of an original column or columns -- because the order of observations in the new column must match the order of the data.frame.
+
+The new columns are appended at the far right.  It can be a pain to see them.  Use `select()` to move them to the far left so we can check them without scrolling.  Here notice the helper function `everything()`.  You can also use `View()` to see the entire dataset.   How is `transmute()` different from `mutate()`? It returns only the new columns.  
+ 
+### Aggregating data using `summarize()`
+
+Statistics are examples of summaries.  
+Examples of summary functions: on whiteboard
+
+```{r}
+summarize(penguins, mean=mean(body_mass_g, na.rm=TRUE), sd =sd(body_mass_g, na.rm=TRUE))
+```
+
+
+Summaries make it easier to compare groups.  For this we need to start with `group_by()`.
+Grouping can be undone using `ungroup()`.  
+```{r}
+summarize(group_by(penguins, island), mean=mean(body_mass_g, na.rm=TRUE))
+```
+
+
+
+
+And this would all be way better with the pipe!
+```{r}
+penguins %>% group_by(., island) %>% summarize(., mean=mean(body_mass_g, na.rm=T))
+```
+
+The simplest summary is COUNTING.  
+It's good to include counts with your summaries.  
+
+See [this chapter in *R4DS*](https://r4ds.had.co.nz/transform.html) for many examples of functions to use in `summary()`.  
+
+```{r}
+penguins %>% 
+  group_by(., island) %>% 
+  summarize(., mean=mean(body_mass_g, na.rm=T), total = n())
+```
+
+
+Examples from padlet:  
+
+```{r}
+# Regis:  which island has the heaviest penguin? 
+penguins %>% 
+  group_by(island) %>% 
+  summarize(champion = max(body_mass_g, na.rm=T)) %>% 
+  arrange(desc(champion)) %>% 
+  head(1)
+
+```
+**Biscoe island has the heaviest penguin.**
+
+```{r}
+# Alina: male Chinstrap penguins sampled in 2008 and body mass greater than 3500.
+penguins %>% filter(sex == 'male', year==2008, species=='Chinstrap', body_mass_g > 3500)
+```
+```{r}
+# Francisco:  what year had the highest average body mass?
+penguins %>% 
+  group_by(year) %>%  
+  summarize(avgmass = mean(body_mass_g, na.rm=T))  %>% 
+  arrange(desc(avgmass)) %>% 
+  head(1)
+```
+```{r}
+# Channing:  2008 Dream Island body mass > 8000 Gentoo
+
+penguins %>% filter(year==2008, island=='Dream', body_mass_g > 4000)
+```
+
+
+
+### Quiz and test questions will look like this:   
+
+1) Use the penguin data.  Extract the male penguins sampled from Dream Island in 2008.  How many penguins are in this set?  
+```{r}
+###
+```
+2) Use the penguin data.  How many Adelie penguins were sampled after 2007? 
+```{r}
+###
+```
+
+
